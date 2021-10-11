@@ -131,3 +131,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 # print(sys.path)
 # RPC_SERVER = "tcp://47.98.113.173:9513"
 ASGI_APPLICATION = "ulb_manager.routing.application"
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": ["*"],
+        },
+    },
+}

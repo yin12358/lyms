@@ -28,9 +28,10 @@ from . import consumers
 
 
 from django.urls import path
-from backend.consumers import MessageConsumer
+from backend.consumers import MessageConsumer,NewMessageConsumer
 
 websocket_urlpatterns = [
     path('ws/chat/', MessageConsumer), # 这里可以定义自己的路由
+    path('ws/', NewMessageConsumer), # 这里可以定义自己的路由
     # path('ws/<str:username>/',MessagesConsumer) # 如果是传参的路由在连接中获取关键字参数方法：self.scope['url_route']['kwargs']['username']
 ]
