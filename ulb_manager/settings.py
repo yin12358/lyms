@@ -13,8 +13,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import sys
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.abspath(os.path.join(os.path.dirname("ulb_manager"), os.path.pardir))
+# sys.path.insert(0, os.path.join(BASE_DIR, 'backend'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -23,10 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'y+@p*+o&c+20-137432r)v0l^ca_k@_482g2c(a_xv0bm&3ik2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -37,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
+    # 'backend',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +60,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'DIRS': [os.path.join(BASE_DIR, 'dist'),os.path.join(BASE_DIR, 'myproject/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'dist'), os.path.join(BASE_DIR, 'myproject/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ulb_manager.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -81,7 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -101,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -115,7 +116,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -123,10 +123,11 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
 
-os.path.join(BASE_DIR, "dist"),
+    os.path.join(BASE_DIR, "dist"),
 
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-
+# print(sys.path)
 # RPC_SERVER = "tcp://47.98.113.173:9513"
+ASGI_APPLICATION = "ulb_manager.routing.application"

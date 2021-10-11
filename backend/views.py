@@ -21,6 +21,7 @@ import json
 # 解决前端post请求 csrf问题
 
 from django.views.decorators.csrf import csrf_exempt
+from dwebsocket import accept_websocket
 
 
 def num1(req_id):
@@ -84,11 +85,20 @@ async def echo(websocket, path):
 
 @csrf_exempt
 def testapi(request):
+    print(11111111111)
     n = asyncio.new_event_loop()
     asyncio.set_event_loop(n)
-    n.run_until_complete(websockets.serve(echo, '47.98.113.173', 9026))
+    n.run_until_complete(websockets.serve(echo, '121.40.214.42', 9599))
     # n.run_until_complete(websockets.serve(echo, '47.98.113.173', 9001))
     n.run_forever()
     print("结束")
     resp = {'errorcode': 100, 'type': 'Get', 'data': {'main': request.GET.get('aa')}}
     return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def ws_message(message):
+    # ASGI WebSocket packet-received and send-packet message types
+    # both have a "text" key for their textual data.
+    message.reply_channel.send({
+        "text": message.content['text'],
+    })
