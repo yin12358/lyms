@@ -4,7 +4,7 @@ import datetime
 import json
 import time
 
-import nest_asyncio
+# import nest_asyncio
 import websockets
 
 from asgiref.sync import async_to_sync
@@ -176,7 +176,7 @@ class NewMessageConsumer(AsyncWebsocketConsumer):
 
     def testapi(self,request):
         print(11111111111)
-        nest_asyncio.apply()
+        # nest_asyncio.apply()
         n = asyncio.new_event_loop()
         asyncio.set_event_loop(n)
         n.run_until_complete(websockets.serve(echo, '121.40.214.42', 9599))
