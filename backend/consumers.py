@@ -4,6 +4,7 @@ import datetime
 import json
 import time
 
+import nest_asyncio
 import websockets
 
 from asgiref.sync import async_to_sync
@@ -39,6 +40,7 @@ def send_channel_msg(channel_name, data):
 class MessageConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
+        print("开启连接")
         # 开启一个新的连接，连接包含消息通道层，通道层的名称
         models_name = self.scope['url_route']['kwargs']['models_name']
         hotel_group_id = self.scope['user_info']['hotel_group_id']
@@ -51,6 +53,7 @@ class MessageConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
+        print("关闭连接")
         # 关闭连接
         await self.channel_layer.group_discard(
             self.group_name,
@@ -78,6 +81,7 @@ class MessageConsumer(AsyncWebsocketConsumer):
 
     # 从消息组接收消息，进行广播
     async def chat_message(self, event):
+        print("广播发送")
         print(event)
         await self.send(text_data=json.dumps({
             'message': event.get('text')
@@ -145,8 +149,34 @@ async def echo(websocket, path):
     asyncio.get_event_loop().stop()
 
 class NewMessageConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        # print("自动执行开启连接")
+        # n = asyncio.new_event_loop()
+        # asyncio.set_event_loop(n)
+        # print(222222)
+        # # await n.run_until_complete(websockets.serve(echo, '121.40.214.42', 9599))
+        # asyncio.ensure_future(websockets.serve(echo, '121.40.214.42', 9599), loop=n)
+        #
+        # print(999999)
+        # # n.run_until_complete(websockets.serve(echo, '47.98.113.173', 9001))
+        # await n.run_forever()
+        # print("结束")
+        print("自动执行开启连接")
+        # n = asyncio.new_event_loop()
+        # asyncio.set_event_loop(n)
+        print(222222)
+        asyncio.get_event_loop().run_until_complete(websockets.serve(echo, '121.40.214.42', 9005))
+        # asyncio.ensure_future(websockets.serve(echo, '121.40.214.42', 9599), loop=n)
+
+        print(999999)
+        # n.run_until_complete(websockets.serve(echo, '47.98.113.173', 9001))
+        asyncio.get_event_loop().run_forever()
+        print("结束")
+
+
     def testapi(self,request):
         print(11111111111)
+        nest_asyncio.apply()
         n = asyncio.new_event_loop()
         asyncio.set_event_loop(n)
         n.run_until_complete(websockets.serve(echo, '121.40.214.42', 9599))
