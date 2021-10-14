@@ -165,7 +165,7 @@ class NewMessageConsumer(AsyncWebsocketConsumer):
         # n = asyncio.new_event_loop()
         # asyncio.set_event_loop(n)
         print(222222)
-        asyncio.get_event_loop().run_until_complete(websockets.serve(echo, '121.40.214.42', 9005))
+        asyncio.get_event_loop().run_until_complete(websockets.serve(echo, '121.40.214.42', 9599))
         # asyncio.ensure_future(websockets.serve(echo, '121.40.214.42', 9599), loop=n)
 
         print(999999)
