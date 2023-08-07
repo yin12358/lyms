@@ -1,0 +1,9 @@
+name:CI
+on:[push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    -uses: actions/checkout@v1
+    -name: test
+    run: echo Hello world!
