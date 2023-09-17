@@ -10,4 +10,4 @@ jobs:
     steps:
     - name: Print a greeting
       run: |
-        echo pip install redis
+        pip install redis
