@@ -9,10 +9,5 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Print a greeting
-      env:
-        MY_VAR: Hi there! My name is
-        FIRST_NAME: Mona
-        MIDDLE_NAME: The
-        LAST_NAME: Octocat
       run: |
         echo "111111111111111111"
