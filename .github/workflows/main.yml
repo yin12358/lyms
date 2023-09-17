@@ -6,7 +6,7 @@ on:
 jobs:
   my-job:
     name: My Job
-    runs-on: win11
+    runs-on: self-hosted
     steps:
     - name: Print a greeting
       env:
