@@ -6,7 +6,7 @@ on:
 jobs:
   my-job:
     name: My Job
-    runs-on: ubuntu-latest
+    runs-on: win11
     steps:
     - name: Print a greeting
       env:
